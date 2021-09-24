@@ -19,11 +19,45 @@ public class Biudzetas {
         return islaidos;
     }
 
+    public double balansas() {
+        double pajamuSuma = 0;
+        for (PajamuIrasas pajamuIrasas : pajamos) {
+            pajamuSuma += pajamuIrasas.getSuma();
+        }
+
+        for (IslaiduIrasas islaiduIrasas : islaidos) {
+            pajamuSuma -= islaiduIrasas.getSuma();
+        }
+        return pajamuSuma;
+    }
+
+    public void pasalintiPajamuIsrasa(int numeris) {
+        // Randame pajamu israsa
+        PajamuIrasas pajamuIrasas = gautiPajamuIrasa(numeris);
+
+        // Jei surastas pajamu israsas mes ji istriname.
+        if (pajamuIrasas != null) {
+            pajamos.remove(pajamuIrasas);
+        } else {
+            System.out.println("Nerastas pajamu irasas pagal ivesta numeri " + numeris);
+        }
+    }
+
+    public void pasalintiIslaiduIsrasa(int numeris) {
+        IslaiduIrasas islaiduIrasas = gautiIslaiduIrasa(numeris);
+        if (islaiduIrasas != null) {
+            islaidos.remove(islaiduIrasas);
+        } else {
+            System.out.println("Nerastas islaidu irasas pagal ivesta numeri " + numeris);
+        }
+    }
+
+
     public void pridetiPajamuIrasa(double suma, String date, String kategorija, String pozymisArIBanka, String papildomaInfo) {
         pajamos.add(
                 new PajamuIrasas(
                         suma,
-                        LocalDate.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                         kategorija,
                         pozymisArIBanka.toLowerCase().equals("taip") ? true : false,
                         papildomaInfo
@@ -31,7 +65,7 @@ public class Biudzetas {
         );
     }
 
-    public void pridetiIslaiduIrasa(double suma,String data, String kategorija, String atsiskaitymoBudas, String papildomaInformacija) {
+    public void pridetiIslaiduIrasa(double suma, String data, String kategorija, String atsiskaitymoBudas, String papildomaInformacija) {
         islaidos.add(
                 new IslaiduIrasas(
                         suma,
@@ -59,7 +93,7 @@ public class Biudzetas {
                 return irasas;
             }
         }
-        
+
         return null;
     }
 }
