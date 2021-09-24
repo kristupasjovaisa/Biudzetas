@@ -58,7 +58,7 @@ public class PajamuIrasas {
 
 
     public PajamuIrasas(double suma, LocalDate data, String kategorija, boolean pozymisArIBanka, String papildomaInfo) {
-        numeris = new Random(1000000).nextInt();
+        numeris = new Random().nextInt(2000000 - 1000000) + 1000000;
         this.suma = suma;
         this.data = data;
         this.kategorija = kategorija;

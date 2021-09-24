@@ -57,7 +57,7 @@ public class IslaiduIrasas {
     }
 
     public IslaiduIrasas(double suma, LocalDate data, String kategorija, String atsiskaitymoBudas, String papildomaInfo) {
-        numeris = new Random(1000000).nextInt();
+        numeris = new Random().nextInt(3000000 - 2000000) + 2000000;
         this.suma = suma;
         this.data = data;
         this.kategorija = kategorija;
