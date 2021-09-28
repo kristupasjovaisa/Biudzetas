@@ -170,13 +170,36 @@ public class EntryPoint {
                         System.out.println("data: " + irasas.getData() + ", redaguoti? (Taip/Ne)");
                         if (sc.next().toLowerCase().equals("taip")) {
                             System.out.println("Iveskite nauja data formatu YYYY-MM-DD");
-                            irasas.setData( LocalDate.parse(sc.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                            irasas.setData(LocalDate.parse(sc.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                         }
                         System.out.println("papildoma informacija: " + irasas.getPapildomaInfo() + ", redaguoti? (Taip/Ne)");
                         if (sc.next().toLowerCase().equals("taip")) {
                             System.out.println("Iveskite nauja informacija");
                             irasas.setPapildomaInfo(sc.next());
                         }
+
+                        if (irasas.getKategorija().equals("pajamos")) {
+                            PajamuIrasas pajamuIrasas = (PajamuIrasas) irasas;
+                            if (pajamuIrasas != null) {
+                                System.out.println("pozymis ar i banka: " + pajamuIrasas.isPozymisArIBanka() + ", redaguoti? (Taip/Ne)");
+                                if (sc.next().toLowerCase().equals("taip")) {
+                                    System.out.println("Iveskite nauja pozymi");
+                                    pajamuIrasas.setPozymisArIBanka(sc.next().toLowerCase().equals("taip") ? true : false);
+                                }
+                            }
+                        }
+
+                        if (irasas.getKategorija().equals("islaidos")) {
+                            IslaiduIrasas islaiduIrasas = (IslaiduIrasas) irasas;
+                            if (islaiduIrasas != null) {
+                                System.out.println("Atsiskaitymo budas: " + islaiduIrasas.getAtsiskaitymoBudas() + ", redaguoti? (Taip/Ne)");
+                                if (sc.next().toLowerCase().equals("taip")) {
+                                    System.out.println("Iveskite nauja atsiskaitymo buda");
+                                    islaiduIrasas.setAtsiskaitymoBudas(sc.next());
+                                }
+                            }
+                        }
+
                         System.out.println("Jusu israsas po redagavimo: " + irasas);
                     } else {
                         System.out.println("Blogai ivestas numeris");
@@ -193,8 +216,8 @@ public class EntryPoint {
     // Mocks
 
     private static void mockIvestiPajamasIrIslaidas(Biudzetas biudzetas) {
-        biudzetas.pridetiIrasa(new PajamuIrasas(100, LocalDate.parse("2000-04-02", DateTimeFormatter.ofPattern("yyyy-MM-dd")),"pajamos",true,"pajamu papildoma informacija"));
-        biudzetas.pridetiIrasa(new IslaiduIrasas(40, LocalDate.parse("2001-06-06",DateTimeFormatter.ofPattern("yyyy-MM-dd")),"islaidos","bankinis","islaidu papildoma informacija"));
+        biudzetas.pridetiIrasa(new PajamuIrasas(100, LocalDate.parse("2000-04-02", DateTimeFormatter.ofPattern("yyyy-MM-dd")), "pajamos", true, "pajamu papildoma informacija"));
+        biudzetas.pridetiIrasa(new IslaiduIrasas(40, LocalDate.parse("2001-06-06", DateTimeFormatter.ofPattern("yyyy-MM-dd")), "islaidos", "bankinis", "islaidu papildoma informacija"));
     }
 
     private static void mockSpausdintiBalansa(Biudzetas biudzetas) {
