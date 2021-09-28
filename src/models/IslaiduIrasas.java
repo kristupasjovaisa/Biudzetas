@@ -3,41 +3,13 @@ package models;
 import java.time.LocalDate;
 import java.util.Random;
 
-public class IslaiduIrasas {
+public class IslaiduIrasas extends Irasas {
 
-    private int numeris;
-    private double suma;
-    private LocalDate data;
-    private String kategorija;
     private String atsiskaitymoBudas;
-    private String papildomaInfo;
 
-    public int getNumeris() {
-        return numeris;
-    }
-
-    public double getSuma() {
-        return suma;
-    }
-
-    public void setSuma(double suma) {
-        this.suma = suma;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    public String getKategorija() {
-        return kategorija;
-    }
-
-    public void setKategorija(String kategorija) {
-        this.kategorija = kategorija;
+    public IslaiduIrasas(double suma, LocalDate data, String kategorija, String atsiskaitymoBudas, String papildomaInfo) {
+        super(suma,data,kategorija,papildomaInfo);
+        this.atsiskaitymoBudas = atsiskaitymoBudas;
     }
 
     public String getAtsiskaitymoBudas() {
@@ -48,32 +20,10 @@ public class IslaiduIrasas {
         this.atsiskaitymoBudas = atsiskaitymoBudas;
     }
 
-    public String getPapildomaInfo() {
-        return papildomaInfo;
-    }
-
-    public void setPapildomaInfo(String papildomaInfo) {
-        this.papildomaInfo = papildomaInfo;
-    }
-
-    public IslaiduIrasas(double suma, LocalDate data, String kategorija, String atsiskaitymoBudas, String papildomaInfo) {
-        numeris = new Random().nextInt(3000000 - 2000000) + 2000000;
-        this.suma = suma;
-        this.data = data;
-        this.kategorija = kategorija;
-        this.atsiskaitymoBudas = atsiskaitymoBudas;
-        this.papildomaInfo = papildomaInfo;
-    }
-
     @Override
     public String toString() {
-        return "IslaiduIrasas{" +
-                "numeris = " + numeris +
-                ", suma = " + suma +
-                ", dataSuLaiku = " + data +
-                ", kategorija = " + kategorija +
-                ", atsiskaitymoBudas = " + atsiskaitymoBudas +
-                ", papildomaInfo = " + papildomaInfo +
-                '}';
+       String string = super.toString();
+       string +=  ", atsiskaitymo budas = " + atsiskaitymoBudas;
+       return string;
     }
 }
