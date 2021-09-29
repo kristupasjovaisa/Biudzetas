@@ -1,84 +1,72 @@
+import models.Irasas;
 import models.IslaiduIrasas;
 import models.PajamuIrasas;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Biudzetas {
 
-    private ArrayList<PajamuIrasas> pajamos = new ArrayList<PajamuIrasas>();
+    private ArrayList<Irasas> irasai = new ArrayList<Irasas>();
 
-    public ArrayList<PajamuIrasas> getPajamos() {
+    public ArrayList<Irasas> getIrasai() {
+        return irasai;
+    }
+
+    public ArrayList<PajamuIrasas> gautiPajamuIrasus() {
+        ArrayList<PajamuIrasas> pajamos = new ArrayList<PajamuIrasas>();
+        for (Irasas irasas : irasai) {
+            if (irasas.getKategorija().equals("pajamos")) {
+                PajamuIrasas pajamuIrasas = (PajamuIrasas) irasas;
+                if (pajamuIrasas != null) {
+                    pajamos.add(pajamuIrasas);
+                }
+            }
+        }
         return pajamos;
     }
 
-    private ArrayList<IslaiduIrasas> islaidos = new ArrayList<IslaiduIrasas>();
-
-    public ArrayList<IslaiduIrasas> getIslaidos() {
+    public ArrayList<IslaiduIrasas> gautiIslaiduIrasus() {
+        ArrayList<IslaiduIrasas> islaidos = new ArrayList<IslaiduIrasas>();
+        for (Irasas irasas : irasai) {
+            if (irasas.getKategorija().equals("islaidos")) {
+                IslaiduIrasas islaiduIrasas = (IslaiduIrasas) irasas;
+                if (islaiduIrasas != null) {
+                    islaidos.add(islaiduIrasas);
+                }
+            }
+        }
         return islaidos;
     }
 
     public double balansas() {
         double pajamuSuma = 0;
-        for (PajamuIrasas pajamuIrasas : pajamos) {
+        for (PajamuIrasas pajamuIrasas : gautiPajamuIrasus()) {
             pajamuSuma += pajamuIrasas.getSuma();
         }
 
-        for (IslaiduIrasas islaiduIrasas : islaidos) {
+        for (IslaiduIrasas islaiduIrasas : gautiIslaiduIrasus()) {
             pajamuSuma -= islaiduIrasas.getSuma();
         }
+
         return pajamuSuma;
     }
 
-    public void pasalintiPajamuIsrasa(int numeris) {
-        // Randame pajamu israsa
-        PajamuIrasas pajamuIrasas = gautiPajamuIrasa(numeris);
+    public void pasilintiIrasa(int numeris) {
+        Irasas irasas = gautiIrasa(numeris);
 
-        // Jei surastas pajamu israsas mes ji istriname.
-        if (pajamuIrasas != null) {
-            pajamos.remove(pajamuIrasas);
+        if (irasas != null) {
+            irasai.remove(irasas);
         } else {
             System.out.println("Nerastas pajamu irasas pagal ivesta numeri " + numeris);
         }
     }
 
-    public void pasalintiIslaiduIsrasa(int numeris) {
-        IslaiduIrasas islaiduIrasas = gautiIslaiduIrasa(numeris);
-        if (islaiduIrasas != null) {
-            islaidos.remove(islaiduIrasas);
-        } else {
-            System.out.println("Nerastas islaidu irasas pagal ivesta numeri " + numeris);
-        }
+    public void pridetiIrasa(Irasas irasas) {
+        irasai.add(irasas);
     }
 
-
-    public void pridetiPajamuIrasa(double suma, String date, String kategorija, String pozymisArIBanka, String papildomaInfo) {
-        pajamos.add(
-                new PajamuIrasas(
-                        suma,
-                        LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                        kategorija,
-                        pozymisArIBanka.toLowerCase().equals("taip") ? true : false,
-                        papildomaInfo
-                )
-        );
-    }
-
-    public void pridetiIslaiduIrasa(double suma, String data, String kategorija, String atsiskaitymoBudas, String papildomaInformacija) {
-        islaidos.add(
-                new IslaiduIrasas(
-                        suma,
-                        LocalDate.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                        kategorija,
-                        atsiskaitymoBudas,
-                        papildomaInformacija
-                )
-        );
-    }
-
-    private PajamuIrasas gautiPajamuIrasa(int numeris) {
-        for (PajamuIrasas israsas : pajamos) {
+    public Irasas gautiIrasa(int numeris) {
+        for (Irasas israsas : irasai) {
             if (numeris == israsas.getNumeris()) {
                 return israsas;
             }
@@ -87,13 +75,18 @@ public class Biudzetas {
         return null;
     }
 
-    private IslaiduIrasas gautiIslaiduIrasa(int numeris) {
-        for (IslaiduIrasas irasas : islaidos) {
-            if (numeris == irasas.getNumeris()) {
-                return irasas;
+    public void atnaujintiIrasa(Irasas irasas) {
+        int indeksas = -1;
+
+        for (int i = 0; i < irasai.size(); i++) {
+            if (irasai.get(i).equals(irasas)) {
+                System.out.println("if");
+                indeksas = i;
             }
         }
 
-        return null;
+        if (indeksas > -1) {
+            irasai.set(indeksas, irasas);
+        }
     }
 }
