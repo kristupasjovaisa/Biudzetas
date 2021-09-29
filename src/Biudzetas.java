@@ -74,4 +74,19 @@ public class Biudzetas {
 
         return null;
     }
+
+    public void atnaujintiIrasa(Irasas irasas) {
+        int indeksas = -1;
+
+        for (int i = 0; i < irasai.size(); i++) {
+            if (irasai.get(i).equals(irasas)) {
+                System.out.println("if");
+                indeksas = i;
+            }
+        }
+
+        if (indeksas > -1) {
+            irasai.set(indeksas, irasas);
+        }
+    }
 }

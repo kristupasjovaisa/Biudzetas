@@ -12,14 +12,14 @@ public class EntryPoint {
         Biudzetas biudzetas = new Biudzetas();
         Scanner sc = new Scanner(System.in);
 
-        mockIvestiPajamasIrIslaidas(biudzetas);
-        mockSpausdintiBalansa(biudzetas);
-        mockSpausdintiPajamasIrIslaidas(biudzetas);
+//        mockIvestiPajamasIrIslaidas(biudzetas);
+//        mockSpausdintiBalansa(biudzetas);
+//        mockSpausdintiPajamasIrIslaidas(biudzetas);
 
-//        ivestiPajamasIslaidas(sc, biudzetas);
-//        spausdintiBalansa(sc, biudzetas);
-//        spausdintiPajamasIrIslaidas(sc, biudzetas);
-//        pasalintiPajamasIrIslaidas(sc, biudzetas);
+        ivestiPajamasIslaidas(sc, biudzetas);
+        spausdintiBalansa(sc, biudzetas);
+        spausdintiPajamasIrIslaidas(sc, biudzetas);
+        pasalintiPajamasIrIslaidas(sc, biudzetas);
         redaguotiIrasa(sc, biudzetas);
 
         sc.close();
