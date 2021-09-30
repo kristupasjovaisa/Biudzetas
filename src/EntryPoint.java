@@ -4,6 +4,7 @@ import models.PajamuIrasas;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class EntryPoint {
@@ -25,6 +26,40 @@ public class EntryPoint {
         sc.close();
     }
 
+    private static double gautiValiduotaSuma(Scanner sc) {
+        double suma = 0;
+        boolean runProgram1 = true;
+        while (runProgram1) {
+            System.out.print("Iveskite suma");
+            String sumaString = sc.next();
+            try {
+                double sumaDouble = Double.parseDouble(sumaString);
+                suma = sumaDouble;
+                runProgram1 = false;
+            } catch (NumberFormatException nfe) {
+                System.out.println("Klaida! Ivesta ne skaicius!");
+            }
+        }
+        return suma;
+    }
+
+    private static LocalDate gautiValiduotaData(Scanner sc) {
+        LocalDate data = LocalDate.now();
+        boolean runProgram2 = true;
+        while (runProgram2) {
+            System.out.print("Iveskite data formatu YYYY-MM-DD");
+            String dataString = sc.next();
+            try {
+                LocalDate localDate = LocalDate.parse(dataString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                data = localDate;
+                runProgram2 = false;
+            } catch (DateTimeParseException exception) {
+                System.out.println("Klaida! Ivestas blogas formatas!");
+            }
+        }
+        return data;
+    }
+
     private static void ivestiPajamasIslaidas(Scanner sc, Biudzetas biudzetas) {
         System.out.println("Pasirinkite norima komanda israso ivedimui: `pajamos`, `islaidos`, `pereiti`." +
                 "\nPasirinkus komanda `pajamos` galesite prideti pajamu israsa." +
@@ -41,10 +76,8 @@ public class EntryPoint {
 
             switch (komanda) {
                 case "pajamos":
-                    System.out.println("Iveskite pajamu suma");
-                    double pajamuSuma = sc.nextDouble();
-                    System.out.println("Iveskite pajamu data formatu YYYY-MM-DD");
-                    String pajamuData = sc.next();
+                    double pajamuSuma = gautiValiduotaSuma(sc);
+                    LocalDate pajamuData = gautiValiduotaData(sc);
                     System.out.println("Iveskite ar pajamos gautos i banka (Taip/Ne)");
                     String pajamuPozymisArIBanka = sc.next();
                     System.out.println("Iveskite papildoma informacija");
@@ -53,7 +86,7 @@ public class EntryPoint {
                     biudzetas.pridetiIrasa(
                             new PajamuIrasas(
                                     pajamuSuma,
-                                    LocalDate.parse(pajamuData, DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                                    pajamuData,
                                     "pajamos",
                                     pajamuPozymisArIBanka.toLowerCase().equals("taip") ? true : false,
                                     pajamuPapildomaInfo
@@ -62,10 +95,8 @@ public class EntryPoint {
                     break;
 
                 case "islaidos":
-                    System.out.println("Iveskite islaidu suma");
-                    double islaiduSuma = sc.nextDouble();
-                    System.out.println("Iveskite islaidu data formatu YYYY-MM-DD");
-                    String islaiduData = sc.next();
+                    double islaiduSuma = gautiValiduotaSuma(sc);
+                    LocalDate islaiduData = gautiValiduotaData(sc);
                     System.out.println("Iveskite atsiskaitymo buda");
                     String atsiskaitymoBudas = sc.next();
                     System.out.println("Iveskite papildoma informacija");
@@ -74,7 +105,7 @@ public class EntryPoint {
                     biudzetas.pridetiIrasa(
                             new IslaiduIrasas(
                                     islaiduSuma,
-                                    LocalDate.parse(islaiduData, DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                                    islaiduData,
                                     "islaidos",
                                     atsiskaitymoBudas,
                                     islaiduPapildomaInfo

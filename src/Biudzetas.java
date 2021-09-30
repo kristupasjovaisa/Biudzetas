@@ -80,7 +80,6 @@ public class Biudzetas {
 
         for (int i = 0; i < irasai.size(); i++) {
             if (irasai.get(i).equals(irasas)) {
-                System.out.println("if");
                 indeksas = i;
             }
         }
