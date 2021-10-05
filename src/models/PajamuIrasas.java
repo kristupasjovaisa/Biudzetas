@@ -13,8 +13,8 @@ public class PajamuIrasas extends Irasas {
         this.pozymisArIBanka = pozymisArIBanka;
     }
 
-    public PajamuIrasas(double suma, LocalDate data, String kategorija, boolean pozymisArIBanka, String papildomaInfo) {
-        super(suma, data, kategorija, papildomaInfo);
+    public PajamuIrasas(int numeris,double suma, LocalDate data, String kategorija, boolean pozymisArIBanka, String papildomaInfo) {
+        super(numeris,suma, data, kategorija, papildomaInfo);
         this.pozymisArIBanka = pozymisArIBanka;
     }
 

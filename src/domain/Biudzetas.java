@@ -1,3 +1,5 @@
+package domain;
+
 import models.Irasas;
 import models.IslaiduIrasas;
 import models.PajamuIrasas;
@@ -5,7 +7,7 @@ import models.PajamuIrasas;
 import java.util.ArrayList;
 
 public class Biudzetas {
-
+    
     private ArrayList<Irasas> irasai = new ArrayList<Irasas>();
 
     public ArrayList<Irasas> getIrasai() {
@@ -80,7 +82,6 @@ public class Biudzetas {
 
         for (int i = 0; i < irasai.size(); i++) {
             if (irasai.get(i).equals(irasas)) {
-                System.out.println("if");
                 indeksas = i;
             }
         }
