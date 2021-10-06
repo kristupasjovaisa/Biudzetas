@@ -62,12 +62,12 @@ public class Failas {
                 String kategorija = list.get(3);
                 String papildomaInformacija = list.get(4);
                 String nezinomasSestasElementas = list.get(5);
-                if (kategorija.equals("pajamos")) {
+                if (kategorija.equals(PajamuIrasas.PAJAMOS)) {
                     boolean pozymisArIBanka = (nezinomasSestasElementas.toLowerCase().equals("taip") ? true : false);
-                    PajamuIrasas pajamuIrasas = new PajamuIrasas(numeris, suma, date, kategorija, pozymisArIBanka, papildomaInformacija);
+                    PajamuIrasas pajamuIrasas = new PajamuIrasas(numeris, suma, date, pozymisArIBanka, papildomaInformacija);
                     irasai.add(pajamuIrasas);
-                } else if (kategorija.equals("islaidos")) {
-                    IslaiduIrasas islaiduIrasas = new IslaiduIrasas(numeris, suma, date, kategorija, nezinomasSestasElementas, papildomaInformacija);
+                } else if (kategorija.equals(IslaiduIrasas.ISLAIDOS)) {
+                    IslaiduIrasas islaiduIrasas = new IslaiduIrasas(numeris, suma, date, nezinomasSestasElementas, papildomaInformacija);
                     irasai.add(islaiduIrasas);
                 }
             }

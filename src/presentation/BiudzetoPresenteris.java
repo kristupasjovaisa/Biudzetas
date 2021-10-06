@@ -93,10 +93,8 @@ public class BiudzetoPresenteris {
 
                     biudzetas.pridetiIrasa(
                             new PajamuIrasas(
-                                    new Random().nextInt(1000000) + 1000000,
                                     pajamuSuma,
                                     pajamuData,
-                                    "pajamos",
                                     arTaip(pajamuPozymisArIBanka),
                                     pajamuPapildomaInfo
                             )
@@ -113,10 +111,8 @@ public class BiudzetoPresenteris {
 
                     biudzetas.pridetiIrasa(
                             new IslaiduIrasas(
-                                    new Random().nextInt(1000000) + 1000000,
                                     islaiduSuma,
                                     islaiduData,
-                                    "islaidos",
                                     atsiskaitymoBudas,
                                     islaiduPapildomaInfo
                             )
@@ -293,8 +289,8 @@ public class BiudzetoPresenteris {
     // Mocks
 
     private void mockIvestiPajamasIrIslaidas(Biudzetas biudzetas) {
-        biudzetas.pridetiIrasa(new PajamuIrasas(123456, 100, LocalDate.parse("2000-04-02", DateTimeFormatter.ofPattern("yyyy-MM-dd")), "pajamos", true, "pajamu papildoma informacija"));
-        biudzetas.pridetiIrasa(new IslaiduIrasas(987456, 9.33354, LocalDate.parse("2001-06-06", DateTimeFormatter.ofPattern("yyyy-MM-dd")), "islaidos", "bankinis", "islaidu papildoma informacija"));
+        biudzetas.pridetiIrasa(new PajamuIrasas(123456, 100, LocalDate.parse("2000-04-02", DateTimeFormatter.ofPattern("yyyy-MM-dd")), true, "pajamu papildoma informacija"));
+        biudzetas.pridetiIrasa(new IslaiduIrasas(987456, 9.33354, LocalDate.parse("2001-06-06", DateTimeFormatter.ofPattern("yyyy-MM-dd")), "bankinis", "islaidu papildoma informacija"));
     }
 
     private void mockSpausdintiBalansa(Biudzetas biudzetas) {

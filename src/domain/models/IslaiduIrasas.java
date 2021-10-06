@@ -4,10 +4,17 @@ import java.time.LocalDate;
 
 public class IslaiduIrasas extends Irasas {
 
+    public static final String ISLAIDOS = "islaidos";
+
     private String atsiskaitymoBudas;
 
-    public IslaiduIrasas(int numeris, double suma, LocalDate data, String kategorija, String atsiskaitymoBudas, String papildomaInfo) {
-        super(numeris, suma, data, kategorija, papildomaInfo);
+    public IslaiduIrasas(int numeris, double suma, LocalDate data, String atsiskaitymoBudas, String papildomaInfo) {
+        super(numeris, suma, data, ISLAIDOS, papildomaInfo);
+        this.atsiskaitymoBudas = atsiskaitymoBudas;
+    }
+
+    public IslaiduIrasas(double suma, LocalDate data, String atsiskaitymoBudas, String papildomaInfo) {
+        super(suma, data, ISLAIDOS, papildomaInfo);
         this.atsiskaitymoBudas = atsiskaitymoBudas;
     }
 
