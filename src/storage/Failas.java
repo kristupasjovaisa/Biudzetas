@@ -1,8 +1,8 @@
 package storage;
 
-import models.Irasas;
-import models.IslaiduIrasas;
-import models.PajamuIrasas;
+import domain.models.Irasas;
+import domain.models.IslaiduIrasas;
+import domain.models.PajamuIrasas;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -15,33 +15,33 @@ public class Failas {
 
     private static final String CSV_SEPARATOR = ",";
 
-    public void issaugotiDuomenis(ArrayList<Irasas> irasai) throws IOException  {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("irasai.csv"), "UTF-8"));
-            for (Irasas irasas : irasai) {
-                StringBuffer oneLine = new StringBuffer();
-                oneLine.append(irasas.getNumeris());
-                oneLine.append(CSV_SEPARATOR);
-                oneLine.append(irasas.getSuma());
-                oneLine.append(CSV_SEPARATOR);
-                oneLine.append(irasas.getData());
-                oneLine.append(CSV_SEPARATOR);
-                oneLine.append(irasas.getKategorija());
-                oneLine.append(CSV_SEPARATOR);
-                oneLine.append(irasas.getPapildomaInfo());
-                oneLine.append(CSV_SEPARATOR);
-                if (irasas instanceof PajamuIrasas) {
-                    PajamuIrasas pajamuIrasas = (PajamuIrasas) irasas;
-                    oneLine.append(pajamuIrasas.isPozymisArIBanka());
-                } else if (irasas instanceof IslaiduIrasas) {
-                    IslaiduIrasas islaiduIrasas = (IslaiduIrasas) irasas;
-                    oneLine.append(islaiduIrasas.getAtsiskaitymoBudas());
-                }
-
-                bw.write(oneLine.toString());
-                bw.newLine();
+    public void issaugotiDuomenis(ArrayList<Irasas> irasai) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("irasai.csv"), "UTF-8"));
+        for (Irasas irasas : irasai) {
+            StringBuffer oneLine = new StringBuffer();
+            oneLine.append(irasas.getNumeris());
+            oneLine.append(CSV_SEPARATOR);
+            oneLine.append(irasas.getSuma());
+            oneLine.append(CSV_SEPARATOR);
+            oneLine.append(irasas.getData());
+            oneLine.append(CSV_SEPARATOR);
+            oneLine.append(irasas.getKategorija());
+            oneLine.append(CSV_SEPARATOR);
+            oneLine.append(irasas.getPapildomaInfo());
+            oneLine.append(CSV_SEPARATOR);
+            if (irasas instanceof PajamuIrasas) {
+                PajamuIrasas pajamuIrasas = (PajamuIrasas) irasas;
+                oneLine.append(pajamuIrasas.isPozymisArIBanka());
+            } else if (irasas instanceof IslaiduIrasas) {
+                IslaiduIrasas islaiduIrasas = (IslaiduIrasas) irasas;
+                oneLine.append(islaiduIrasas.getAtsiskaitymoBudas());
             }
-            bw.flush();
-            bw.close();
+
+            bw.write(oneLine.toString());
+            bw.newLine();
+        }
+        bw.flush();
+        bw.close();
     }
 
     public ArrayList<Irasas> gautiDuomenis() {

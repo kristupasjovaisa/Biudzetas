@@ -1,13 +1,13 @@
 package domain;
 
-import models.Irasas;
-import models.IslaiduIrasas;
-import models.PajamuIrasas;
+import domain.models.Irasas;
+import domain.models.IslaiduIrasas;
+import domain.models.PajamuIrasas;
 
 import java.util.ArrayList;
 
 public class Biudzetas {
-    
+
     private ArrayList<Irasas> irasai = new ArrayList<Irasas>();
 
     public ArrayList<Irasas> getIrasai() {
@@ -59,7 +59,7 @@ public class Biudzetas {
         if (irasas != null) {
             irasai.remove(irasas);
         } else {
-            System.out.println("Nerastas pajamu irasas pagal ivesta numeri " + numeris);
+            System.out.println(String.format("Nerastas pajamu irasas pagal ivesta numeri %d", numeris));
         }
     }
 

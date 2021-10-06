@@ -1,4 +1,5 @@
-package models;
+package domain.models;
+
 import java.time.LocalDate;
 
 public class PajamuIrasas extends Irasas {
@@ -13,15 +14,14 @@ public class PajamuIrasas extends Irasas {
         this.pozymisArIBanka = pozymisArIBanka;
     }
 
-    public PajamuIrasas(int numeris,double suma, LocalDate data, String kategorija, boolean pozymisArIBanka, String papildomaInfo) {
-        super(numeris,suma, data, kategorija, papildomaInfo);
+    public PajamuIrasas(int numeris, double suma, LocalDate data, String kategorija, boolean pozymisArIBanka, String papildomaInfo) {
+        super(numeris, suma, data, kategorija, papildomaInfo);
         this.pozymisArIBanka = pozymisArIBanka;
     }
 
     @Override
     public String toString() {
         String string = super.toString();
-        string += ", pozymisArIBanka = " + (pozymisArIBanka ? "Taip" : "Ne");
-        return string;
+        return String.format(string += ", pozymisArIBanka = %s", (pozymisArIBanka ? "Taip" : "Ne"));
     }
 }

@@ -1,4 +1,4 @@
-package models;
+package domain.models;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -61,11 +61,14 @@ public class Irasas {
 
     @Override
     public String toString() {
-        return "numeris = " + numeris +
-                ", suma = " + suma +
-                ", data = " + data +
-                ", kategorija = " + kategorija +
-                ", papildomaInfo = " + papildomaInfo;
+        return String.format(
+                "numeris = %d, suma = %.2f, data = %s, kategorija = %s, papildomaInfo = %s",
+                numeris,
+                suma,
+                data,
+                kategorija,
+                papildomaInfo
+        );
     }
 
     @Override
