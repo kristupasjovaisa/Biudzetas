@@ -1,17 +1,17 @@
 package presentation;
 
-import models.Irasas;
-import models.IslaiduIrasas;
-import models.PajamuIrasas;
+import domain.models.Irasas;
+import domain.models.IslaiduIrasas;
+import domain.models.PajamuIrasas;
 import domain.Biudzetas;
+import helpers.Helper;
 import storage.Failas;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
 import java.util.Scanner;
 
 public class BiudzetoPresenteris {
@@ -83,7 +83,7 @@ public class BiudzetoPresenteris {
             }
 
             switch (komanda) {
-                case "pajamos":
+                case PajamuIrasas.PAJAMOS:
                     double pajamuSuma = gautiValiduotaSuma(sc);
                     LocalDate pajamuData = gautiValiduotaData(sc);
                     System.out.println("Iveskite ar pajamos gautos i banka (Taip/Ne)");
@@ -93,17 +93,15 @@ public class BiudzetoPresenteris {
 
                     biudzetas.pridetiIrasa(
                             new PajamuIrasas(
-                                    new Random().nextInt(1000000) + 1000000,
                                     pajamuSuma,
                                     pajamuData,
-                                    "pajamos",
-                                    arTaip(pajamuPozymisArIBanka),
+                                    Helper.arTaip(pajamuPozymisArIBanka),
                                     pajamuPapildomaInfo
                             )
                     );
                     break;
 
-                case "islaidos":
+                case IslaiduIrasas.ISLAIDOS:
                     double islaiduSuma = gautiValiduotaSuma(sc);
                     LocalDate islaiduData = gautiValiduotaData(sc);
                     System.out.println("Iveskite atsiskaitymo buda");
@@ -113,10 +111,8 @@ public class BiudzetoPresenteris {
 
                     biudzetas.pridetiIrasa(
                             new IslaiduIrasas(
-                                    new Random().nextInt(1000000) + 1000000,
                                     islaiduSuma,
                                     islaiduData,
-                                    "islaidos",
                                     atsiskaitymoBudas,
                                     islaiduPapildomaInfo
                             )
@@ -124,7 +120,7 @@ public class BiudzetoPresenteris {
                     break;
 
                 default:
-                    System.out.println("Nezinoma komanda: " + komanda);
+                    System.out.println(String.format("Nezinoma komanda: %s", komanda));
             }
         }
     }
@@ -132,16 +128,20 @@ public class BiudzetoPresenteris {
     private void spausdintiBalansa(Scanner sc, Biudzetas biudzetas) {
         System.out.println("Ar norite patikrinti balansa? (Taip/Ne)");
 
-        if (arTaip(sc.next())) {
-            System.out.println("Jusu balansas yra: " + biudzetas.balansas());
+        if (Helper.arTaip(sc.next())) {
+            System.out.println(String.format("Jusu balansas yra: %.2f", biudzetas.balansas()));
         }
     }
 
     private void spausdintiPajamasIrIslaidas(Scanner sc, Biudzetas biudzetas) {
         System.out.println("Ar noretumete atspausdinti pajamu ir islaidu israsa? (Taip/Ne)");
-        if (arTaip(sc.next())) {
-            System.out.println("Pajamu israsas: " + biudzetas.gautiPajamuIrasus());
-            System.out.println("Islaidu israsas: " + biudzetas.gautiIslaiduIrasus());
+        if (Helper.arTaip(sc.next())) {
+            for (Irasas pajamuIrasas : biudzetas.gautiPajamuIrasus()) {
+                System.out.println(String.format("Pajamu israsas: %s", pajamuIrasas));
+            }
+            for (Irasas islaiduIrasas : biudzetas.gautiIslaiduIrasus()) {
+                System.out.println(String.format("Islaidu israsas: %s", islaiduIrasas));
+            }
         }
     }
 
@@ -160,22 +160,22 @@ public class BiudzetoPresenteris {
             }
 
             switch (komanda) {
-                case "pajamos":
+                case PajamuIrasas.PAJAMOS:
                     System.out.println("Iveskite ID numeri");
                     int pajamuIsrasoNumeris = sc.nextInt();
                     biudzetas.pasilintiIrasa(pajamuIsrasoNumeris);
-                    System.out.println("Jusu pajamu israsai po israso " + pajamuIsrasoNumeris + " pasalinimo " + biudzetas.gautiPajamuIrasus());
+                    System.out.println(String.format("Jusu pajamu israsai po israso, %d pasalinimo %s", pajamuIsrasoNumeris, biudzetas.gautiPajamuIrasus()));
                     break;
 
-                case "islaidos":
+                case IslaiduIrasas.ISLAIDOS:
                     System.out.println("Iveskite ID numeri");
                     int islaiduIsrasoNumeris = sc.nextInt();
                     biudzetas.pasilintiIrasa(islaiduIsrasoNumeris);
-                    System.out.println("Jusu islaidu israsai po israso " + islaiduIsrasoNumeris + " pasalinimo " + biudzetas.gautiIslaiduIrasus());
+                    System.out.println(String.format("Jusu islaidu israsai po israso %d pasalinimo %s", islaiduIsrasoNumeris, biudzetas.gautiIslaiduIrasus()));
                     break;
 
                 default:
-                    System.out.println("Nezinoma komanda: " + komanda);
+                    System.out.println(String.format("Nezinoma komanda: %s", komanda));
             }
         }
     }
@@ -196,52 +196,51 @@ public class BiudzetoPresenteris {
             switch (komanda) {
                 case "redaguoti":
                     for (int i = 0; i < biudzetas.getIrasai().size(); i++) {
-                        System.out.println("Irasas" + (i + 1) + ": " + biudzetas.getIrasai().get(i));
+                        System.out.println(String.format("Irasas%d: %s", (i + 1), biudzetas.getIrasai().get(i)));
                     }
 
                     System.out.println("Iveskite ID numeri");
                     int israsoNumeris = sc.nextInt();
                     Irasas irasas = biudzetas.gautiIrasa(israsoNumeris);
                     if (irasas != null) {
-                        System.out.println("suma: " + irasas.getSuma() + ", redaguoti? (Taip/Ne)");
-                        if (arTaip(sc.next())) {
+                        System.out.println(String.format("suma: %.2f, redaguoti? (Taip/Ne)", irasas.getSuma()));
+                        if (Helper.arTaip(sc.next())) {
                             System.out.println("Iveskite nauja suma");
                             irasas.setSuma(sc.nextDouble());
                         }
-                        System.out.println("data: " + irasas.getData() + ", redaguoti? (Taip/Ne)");
-                        if (arTaip(sc.next())) {
+                        System.out.println(String.format("data: %s, redaguoti? (Taip/Ne)", irasas.getData()));
+                        if (Helper.arTaip(sc.next())) {
                             System.out.println("Iveskite nauja data formatu YYYY-MM-DD");
                             irasas.setData(LocalDate.parse(sc.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                         }
-                        System.out.println("papildoma informacija: " + irasas.getPapildomaInfo() + ", redaguoti? (Taip/Ne)");
-                        if (arTaip(sc.next())) {
+                        System.out.println(String.format("papildoma informacija: %s, redaguoti? (Taip/Ne)", irasas.getPapildomaInfo()));
+                        if (Helper.arTaip(sc.next())) {
                             System.out.println("Iveskite nauja informacija");
                             irasas.setPapildomaInfo(sc.next());
                         }
 
-                        if (irasas.getKategorija().equals("pajamos")) {
+                        if (irasas.getKategorija().equals(PajamuIrasas.PAJAMOS)) {
                             PajamuIrasas pajamuIrasas = (PajamuIrasas) irasas;
                             if (pajamuIrasas != null) {
-                                System.out.println("pozymis ar i banka: " + pajamuIrasas.isPozymisArIBanka() + ", redaguoti? (Taip/Ne)");
-                                if (arTaip(sc.next())) {
+                                System.out.println(String.format("pozymis ar i banka: %s, redaguoti? (Taip/Ne)", Helper.getTaipArbaNe(pajamuIrasas.isPozymisArIBanka())));
+                                if (Helper.arTaip(sc.next())) {
                                     System.out.println("Iveskite nauja pozymi");
-                                    pajamuIrasas.setPozymisArIBanka(arTaip(sc.next()));
+                                    pajamuIrasas.setPozymisArIBanka(Helper.arTaip(sc.next()));
                                 }
                             }
                         }
 
-                        if (irasas.getKategorija().equals("islaidos")) {
+                        if (irasas.getKategorija().equals(IslaiduIrasas.ISLAIDOS)) {
                             IslaiduIrasas islaiduIrasas = (IslaiduIrasas) irasas;
                             if (islaiduIrasas != null) {
-                                System.out.println("Atsiskaitymo budas: " + islaiduIrasas.getAtsiskaitymoBudas() + ", redaguoti? (Taip/Ne)");
-                                if (arTaip(sc.next())) {
+                                System.out.println(String.format("Atsiskaitymo budas: %s, redaguoti? (Taip/Ne)", islaiduIrasas.getAtsiskaitymoBudas()));
+                                if (Helper.arTaip(sc.next())) {
                                     System.out.println("Iveskite nauja atsiskaitymo buda");
                                     islaiduIrasas.setAtsiskaitymoBudas(sc.next());
                                 }
                             }
                         }
-
-                        System.out.println("Jusu israsas po redagavimo: " + irasas);
+                        System.out.println(String.format("Jusu israsas po redagavimo: %s", irasas));
                     } else {
                         System.out.println("Blogai ivestas numeris");
                     }
@@ -249,29 +248,29 @@ public class BiudzetoPresenteris {
                     break;
 
                 default:
-                    System.out.println("Nezinoma komanda: " + komanda);
+                    System.out.println(String.format("Nezinoma komanda: %s", komanda));
             }
         }
     }
 
     private void issaugotiDuomenis(Scanner sc, Biudzetas biudzetas) {
         System.out.println("Ar norite issaugoti duomenys? (Taip/Ne)");
-        if (arTaip(sc.next())) {
+        if (Helper.arTaip(sc.next())) {
             try {
                 Failas failas = new Failas();
                 failas.issaugotiDuomenis(biudzetas.getIrasai());
                 System.out.println("Jusu duomenys issaugoti");
             } catch (IOException e) {
-                System.out.println("Nepavyko issaugoti duomenu " + e);
+                System.out.println(String.format("Nepavyko issaugoti duomenu %s", e));
             }
         }
     }
 
     private void gautiDuomenis(Scanner sc) {
         System.out.println("Ar norite gauti duomenys? (Taip/Ne)");
-        if (arTaip(sc.next())) {
+        if (Helper.arTaip(sc.next())) {
             Failas failas = new Failas();
-            ArrayList<Irasas> duomenys = failas.gautiDuomenis();
+            List<Irasas> duomenys = failas.gautiDuomenis();
             if (duomenys.size() > 0) {
                 System.out.println("Gauti duomenys:");
                 for (Irasas irasas : duomenys) {
@@ -283,15 +282,11 @@ public class BiudzetoPresenteris {
         }
     }
 
-    private boolean arTaip(String string) {
-        return string.toLowerCase().equals("taip");
-    }
-
     // Mocks
 
     private void mockIvestiPajamasIrIslaidas(Biudzetas biudzetas) {
-        biudzetas.pridetiIrasa(new PajamuIrasas(123456, 100, LocalDate.parse("2000-04-02", DateTimeFormatter.ofPattern("yyyy-MM-dd")), "pajamos", true, "pajamu papildoma informacija"));
-        biudzetas.pridetiIrasa(new IslaiduIrasas(987456, 10, LocalDate.parse("2001-06-06", DateTimeFormatter.ofPattern("yyyy-MM-dd")), "islaidos", "bankinis", "islaidu papildoma informacija"));
+        biudzetas.pridetiIrasa(new PajamuIrasas(123456, 100, LocalDate.parse("2000-04-02", DateTimeFormatter.ofPattern("yyyy-MM-dd")), true, "pajamu papildoma informacija"));
+        biudzetas.pridetiIrasa(new IslaiduIrasas(987456, 9.33354, LocalDate.parse("2001-06-06", DateTimeFormatter.ofPattern("yyyy-MM-dd")), "bankinis", "islaidu papildoma informacija"));
     }
 
     private void mockSpausdintiBalansa(Biudzetas biudzetas) {

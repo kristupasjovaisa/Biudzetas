@@ -1,23 +1,24 @@
 package domain;
 
-import models.Irasas;
-import models.IslaiduIrasas;
-import models.PajamuIrasas;
+import domain.models.Irasas;
+import domain.models.IslaiduIrasas;
+import domain.models.PajamuIrasas;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Biudzetas {
-    
-    private ArrayList<Irasas> irasai = new ArrayList<Irasas>();
 
-    public ArrayList<Irasas> getIrasai() {
+    private List<Irasas> irasai = new ArrayList<>();
+
+    public List<Irasas> getIrasai() {
         return irasai;
     }
 
-    public ArrayList<PajamuIrasas> gautiPajamuIrasus() {
-        ArrayList<PajamuIrasas> pajamos = new ArrayList<PajamuIrasas>();
+    public List<PajamuIrasas> gautiPajamuIrasus() {
+        List<PajamuIrasas> pajamos = new ArrayList<>();
         for (Irasas irasas : irasai) {
-            if (irasas.getKategorija().equals("pajamos")) {
+            if (irasas.getKategorija().equals(PajamuIrasas.PAJAMOS)) {
                 PajamuIrasas pajamuIrasas = (PajamuIrasas) irasas;
                 if (pajamuIrasas != null) {
                     pajamos.add(pajamuIrasas);
@@ -27,10 +28,10 @@ public class Biudzetas {
         return pajamos;
     }
 
-    public ArrayList<IslaiduIrasas> gautiIslaiduIrasus() {
-        ArrayList<IslaiduIrasas> islaidos = new ArrayList<IslaiduIrasas>();
+    public List<IslaiduIrasas> gautiIslaiduIrasus() {
+        List<IslaiduIrasas> islaidos = new ArrayList<>();
         for (Irasas irasas : irasai) {
-            if (irasas.getKategorija().equals("islaidos")) {
+            if (irasas.getKategorija().equals(IslaiduIrasas.ISLAIDOS)) {
                 IslaiduIrasas islaiduIrasas = (IslaiduIrasas) irasas;
                 if (islaiduIrasas != null) {
                     islaidos.add(islaiduIrasas);
@@ -59,7 +60,7 @@ public class Biudzetas {
         if (irasas != null) {
             irasai.remove(irasas);
         } else {
-            System.out.println("Nerastas pajamu irasas pagal ivesta numeri " + numeris);
+            System.out.println(String.format("Nerastas pajamu irasas pagal ivesta numeri %d", numeris));
         }
     }
 

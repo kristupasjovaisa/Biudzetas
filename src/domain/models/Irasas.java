@@ -1,7 +1,8 @@
-package models;
+package domain.models;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Random;
 
 public class Irasas {
 
@@ -11,7 +12,7 @@ public class Irasas {
     private String kategorija;
     private String papildomaInfo;
 
-    Irasas(int numeris, double suma, LocalDate data, String kategorija, String papildomaInfo) {
+    public Irasas(int numeris, double suma, LocalDate data, String kategorija, String papildomaInfo) {
         this.numeris = numeris;
         this.suma = suma;
         this.data = data;
@@ -19,12 +20,12 @@ public class Irasas {
         this.papildomaInfo = papildomaInfo;
     }
 
-    public int getNumeris() {
-        return numeris;
+    public Irasas(double suma, LocalDate data, String kategorija, String papildomaInfo) {
+        this(new Random().nextInt(1000000) + 1000000, suma, data, kategorija, papildomaInfo);
     }
 
-    public void setNumeris(int numeris) {
-        this.numeris = numeris;
+    public int getNumeris() {
+        return numeris;
     }
 
     public double getSuma() {
@@ -47,10 +48,6 @@ public class Irasas {
         return kategorija;
     }
 
-    public void setKategorija(String kategorija) {
-        this.kategorija = kategorija;
-    }
-
     public String getPapildomaInfo() {
         return papildomaInfo;
     }
@@ -61,11 +58,14 @@ public class Irasas {
 
     @Override
     public String toString() {
-        return "numeris = " + numeris +
-                ", suma = " + suma +
-                ", data = " + data +
-                ", kategorija = " + kategorija +
-                ", papildomaInfo = " + papildomaInfo;
+        return String.format(
+                "numeris = %d, suma = %.2f, data = %s, kategorija = %s, papildomaInfo = %s",
+                numeris,
+                suma,
+                data,
+                kategorija,
+                papildomaInfo
+        );
     }
 
     @Override
