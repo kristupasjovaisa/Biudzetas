@@ -5,17 +5,18 @@ import domain.models.IslaiduIrasas;
 import domain.models.PajamuIrasas;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Biudzetas {
 
-    private ArrayList<Irasas> irasai = new ArrayList<Irasas>();
+    private List<Irasas> irasai = new ArrayList<>();
 
-    public ArrayList<Irasas> getIrasai() {
+    public List<Irasas> getIrasai() {
         return irasai;
     }
 
-    public ArrayList<PajamuIrasas> gautiPajamuIrasus() {
-        ArrayList<PajamuIrasas> pajamos = new ArrayList<PajamuIrasas>();
+    public List<PajamuIrasas> gautiPajamuIrasus() {
+        List<PajamuIrasas> pajamos = new ArrayList<>();
         for (Irasas irasas : irasai) {
             if (irasas.getKategorija().equals(PajamuIrasas.PAJAMOS)) {
                 PajamuIrasas pajamuIrasas = (PajamuIrasas) irasas;
@@ -27,8 +28,8 @@ public class Biudzetas {
         return pajamos;
     }
 
-    public ArrayList<IslaiduIrasas> gautiIslaiduIrasus() {
-        ArrayList<IslaiduIrasas> islaidos = new ArrayList<IslaiduIrasas>();
+    public List<IslaiduIrasas> gautiIslaiduIrasus() {
+        List<IslaiduIrasas> islaidos = new ArrayList<>();
         for (Irasas irasas : irasai) {
             if (irasas.getKategorija().equals(IslaiduIrasas.ISLAIDOS)) {
                 IslaiduIrasas islaiduIrasas = (IslaiduIrasas) irasas;

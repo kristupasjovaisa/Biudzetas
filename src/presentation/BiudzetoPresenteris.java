@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BiudzetoPresenteris {
@@ -270,7 +270,7 @@ public class BiudzetoPresenteris {
         System.out.println("Ar norite gauti duomenys? (Taip/Ne)");
         if (Helper.arTaip(sc.next())) {
             Failas failas = new Failas();
-            ArrayList<Irasas> duomenys = failas.gautiDuomenis();
+            List<Irasas> duomenys = failas.gautiDuomenis();
             if (duomenys.size() > 0) {
                 System.out.println("Gauti duomenys:");
                 for (Irasas irasas : duomenys) {

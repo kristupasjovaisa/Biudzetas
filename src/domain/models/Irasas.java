@@ -28,10 +28,6 @@ public class Irasas {
         return numeris;
     }
 
-    public void setNumeris(int numeris) {
-        this.numeris = numeris;
-    }
-
     public double getSuma() {
         return suma;
     }
@@ -50,10 +46,6 @@ public class Irasas {
 
     public String getKategorija() {
         return kategorija;
-    }
-
-    public void setKategorija(String kategorija) {
-        this.kategorija = kategorija;
     }
 
     public String getPapildomaInfo() {

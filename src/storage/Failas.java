@@ -16,7 +16,7 @@ public class Failas {
 
     private static final String CSV_SEPARATOR = ",";
 
-    public void issaugotiDuomenis(ArrayList<Irasas> irasai) throws IOException {
+    public void issaugotiDuomenis(List<Irasas> irasai) throws IOException {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("irasai.csv"), "UTF-8"));
         for (Irasas irasas : irasai) {
             StringBuffer oneLine = new StringBuffer();
@@ -45,8 +45,8 @@ public class Failas {
         bw.close();
     }
 
-    public ArrayList<Irasas> gautiDuomenis() {
-        ArrayList<Irasas> irasai = new ArrayList();
+    public List<Irasas> gautiDuomenis() {
+        List<Irasas> irasai = new ArrayList();
         List<List<String>> irasaiIsCSVfailo = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader("irasai.csv"))) {
