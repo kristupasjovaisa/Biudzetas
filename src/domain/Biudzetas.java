@@ -17,7 +17,7 @@ public class Biudzetas {
     public ArrayList<PajamuIrasas> gautiPajamuIrasus() {
         ArrayList<PajamuIrasas> pajamos = new ArrayList<PajamuIrasas>();
         for (Irasas irasas : irasai) {
-            if (irasas.getKategorija().equals("pajamos")) {
+            if (irasas.getKategorija().equals(PajamuIrasas.PAJAMOS)) {
                 PajamuIrasas pajamuIrasas = (PajamuIrasas) irasas;
                 if (pajamuIrasas != null) {
                     pajamos.add(pajamuIrasas);
@@ -30,7 +30,7 @@ public class Biudzetas {
     public ArrayList<IslaiduIrasas> gautiIslaiduIrasus() {
         ArrayList<IslaiduIrasas> islaidos = new ArrayList<IslaiduIrasas>();
         for (Irasas irasas : irasai) {
-            if (irasas.getKategorija().equals("islaidos")) {
+            if (irasas.getKategorija().equals(IslaiduIrasas.ISLAIDOS)) {
                 IslaiduIrasas islaiduIrasas = (IslaiduIrasas) irasas;
                 if (islaiduIrasas != null) {
                     islaidos.add(islaiduIrasas);

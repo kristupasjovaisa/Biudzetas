@@ -1,5 +1,7 @@
 package domain.models;
 
+import helpers.Helper;
+
 import java.time.LocalDate;
 
 public class PajamuIrasas extends Irasas {
@@ -29,6 +31,6 @@ public class PajamuIrasas extends Irasas {
     @Override
     public String toString() {
         String string = super.toString();
-        return String.format(string += ", pozymisArIBanka = %s", (pozymisArIBanka ? "Taip" : "Ne"));
+        return String.format(string += ", pozymisArIBanka = %s", Helper.getTaipArbaNe(pozymisArIBanka));
     }
 }

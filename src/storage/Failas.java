@@ -3,6 +3,7 @@ package storage;
 import domain.models.Irasas;
 import domain.models.IslaiduIrasas;
 import domain.models.PajamuIrasas;
+import helpers.Helper;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -63,7 +64,7 @@ public class Failas {
                 String papildomaInformacija = list.get(4);
                 String nezinomasSestasElementas = list.get(5);
                 if (kategorija.equals(PajamuIrasas.PAJAMOS)) {
-                    boolean pozymisArIBanka = (nezinomasSestasElementas.toLowerCase().equals("taip") ? true : false);
+                    boolean pozymisArIBanka = Helper.arTaip(nezinomasSestasElementas);
                     PajamuIrasas pajamuIrasas = new PajamuIrasas(numeris, suma, date, pozymisArIBanka, papildomaInformacija);
                     irasai.add(pajamuIrasas);
                 } else if (kategorija.equals(IslaiduIrasas.ISLAIDOS)) {
